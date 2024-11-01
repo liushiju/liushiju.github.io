@@ -1,0 +1,259 @@
+---
+# Source: datasense-business/templates/business-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: datasense-business
+  namespace: mid
+data:
+  application.yaml: |
+    server:
+      port: 8080
+    spring:
+      servlet:
+        multipart:
+          max-file-size: 200MB
+          max-request-size: 200MB
+      application:
+        name: datasense-business
+      datasource:
+        deepexi-db-name: datasense_business
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://df-mysql.mid:3306/datasense_business?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+        username: root
+        password: Mysql^uHHsWrf7mK
+        hikari:
+          maximum-pool-size: 10
+          minimum-idle: 5
+        test-while-idle: true
+        validation-query: SELECT 1
+        connectionInitSql: set names utf8mb4;
+
+    # mybatis-plus
+    mybatis-plus:
+      global-config:
+        db-config:
+          logic-delete-field: is_deleted
+          logic-delete-value: 1
+          logic-not-delete-value: 0
+      configuration:
+        log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+        map-underscore-to-camel-case: true
+      mapperLocations: classpath*:/mapper/**/*.xml
+      type-aliases-package: com.deepexi.datasense.business.*.core.*
+
+    # 默认关闭限流降级
+    feign:
+      sentinel:
+        enabled: false
+      hystrix:
+        enabled: false
+      client:
+        config:
+          default:
+            connectTimeout: 300000
+            readTimeout: 300000
+          datasense-data-base:
+            connect-timeout: 300000
+            read-timeout: 300000
+          datasense-data-core:
+            connect-timeout: 300000
+            read-timeout: 300000
+          FlinkJobApiClient:
+            connect-timeout: 300000
+            read-timeout: 300000
+      url:
+        service: http://k8sMasterIp:32080/datasensebi/vision/loginByToken
+    #rocketmq
+    rocketmq:
+      name-server: rocketmq-nameserver.mid:9876
+      topic:
+        base: DATASENSE_BUSINESS_BASE_TOPIC
+        instance: DATASENSE_BUSINESS_INSTANCE_TOPIC
+        abi: DATASENSE_BUSINESS_ABI_TOPIC
+        # 控制台发送 MQ
+        console: CONSOLE_PRODUCE_TOPIC
+      asset:
+        topic: DATASENSE_DATA_ASSET_VISITED_TOPIC
+        tag:
+          asset-visited: ASSET_VISITED_TAG
+      group:
+        base: DATASENSE_BUSINESS_BASE_GROUP
+        instance: DATASENSE_BUSINESS_INSTANCE_GROUP
+        abi: DATASENSE_BUSINESS_ABI_GROUP
+        console: DATASENSE_BUSINESS_CONSOLE_GROUP
+        sendMessageTimeout: 300000
+      tag:
+        base:
+          # 示例用，有实际使用场景后这里替换掉 目前暂未
+          demo: demo
+        instance:
+           # 示例用，有实际使用场景后这里替换掉
+          service_request_log: SERVICE_REQUEST_LOG
+        abi:
+          # 示例用，有实际使用场景后这里替换掉
+          mqSynTenantSmartBI: MQ_SYN_TENANT_SMART_BI
+        console:
+          # 用户授权相关消息
+          userAuth: UserAuth
+      workbench:
+        topic: CONSOLE_PRODUCE_TOPIC
+        group: DATASENSE_DATA_META_GROUP
+
+    deepexi:
+      abi:
+        enabled: true
+        smartbi:
+          url: http://k8sMasterIp:32080/datasensebi
+          user: admin
+          password: admin
+          token-secret-key: datasens
+          data-source:
+            user-name: dlink
+            password: 123456
+            driver-type: POSTGRESQL
+            driver-class-name: org.postgresql.Driver
+            driver-catalog: ./dynamicLibraryPath
+            db-url: jdbc:postgresql://k8sMasterIp:35432/
+            max-connection: 100
+      gateway:
+        host: http://k8sMasterIp:32080/datasense-service
+        host-open-api: http://k8sMasterIp:32080/datasense-service
+        context-path: /api-service
+        token:
+          url: /oauth/token
+          params: appKey,appSecret
+      iam:
+        sdk:
+          base-path: http://ingress-nginx-controller.mid
+        whitelists:
+          - /deepexi-client-iam-openapi/api/v1.0/*
+          - /swagger-ui.html
+        url: http://ingress-nginx-controller.mid/deepexi-client-iam-openapi/api/v1.0
+        client_id: fastdata.deepexi.com
+        client_secret: zrodzqngbu
+        menu:
+          hideButton: true
+        system_role_code: dxp
+        system_role_group_code: dxp
+        system_menu_code: dxp_console_group
+        project_space_menu_code: dxp_console_project_space_group
+        project_space_init: true
+        data_portal_menu_code: dxp_console_data_portal_group
+        system_app_code: datasense_web
+      default:
+        tenant-id: 4e086791212649d79f30ec0527599aee
+        tenant-prefix: ds_
+      dxp-console:
+        appId: 1390405260063744
+      changelog:
+        switch: true
+      datasense:
+        init:
+          tenant:
+            data-source:
+              enabled: false
+              datasourceTypeName: POSTGRES
+              host: 10.201.2.135
+              port: 54321
+              user: postgres
+              password: dxp@2022
+              databaseName: postgres
+              version:
+              name: commerce
+              remark: 示例数据源
+
+    # 默认数据源，配合控制台使用
+    default:
+      datasource:
+        host: 10.201.2.192
+        port: 3306
+        password: Spaas@2021
+        user: spaas
+        datasourceType: mysql
+        version: 5.7.12-log
+
+    target:
+      datasourceType: POSTGRES,STARROCKS,GAUSSDBDWS,CLICKHOUSE,TRINO,DLINKMESH
+
+    workbench:
+      internal:
+        api:
+          url: http://k8sMasterIp:32080/deepexi-console/api
+    #redis
+    redis:
+      type: sentinel
+      group: datasense-data-business-group
+      addresses: rfs-redis.mid:26379,rfs-redis.mid:26380
+      masterName: mymaster
+      appSecret: U2FsdGVkX1@28Lik
+      maxIdle: 10
+      maxTotal: 10
+      maxWaitMillis: 30000
+
+      # 华为云OBS配置
+    csc:
+      # 当前项目需要的存储组件 obs|minio|mysql
+      apply: minio
+      folderName: datasense
+      obs:
+        # 华为云 OBS 需要的获取token 参数
+        endpoint: obs.cn-southwest-2.myhuaweicloud.com
+        accessKeyId: 1234
+        accessKeySecret: 123
+        userName: obs-spaas
+        passWord: "pUNIKQ8FNmLfYywj"
+        domainName: hw07868560
+        durationSeconds: 900
+        domain: https://deepexi-spaas.obs.cn-southwest-2.myhuaweicloud.com
+        bucketName: deepexi-spaas
+        folderName:
+        region: https://obs.cn-southwest-2.myhuaweicloud.com
+      minio:
+        #minio 所需参数
+        endPoint: http://minio.mid
+        domain: https://dev-datasense.deepexi.com/dxp-data-base/base/file/share
+        bucketName: datasense
+        accessKey: minio
+        secretKey: WSjN4mwoQ6c94rE7
+      mysql-file:
+        #mysql 二进制方式存在mysql的情况后端接口的访问域名
+        domain: https://test-datasense.deepexi.com/datasense-data-business
+
+    es:
+      client:
+        addrs: es.mid:9200
+      host: es.mid:9200
+      username: elastic
+      password: ES^daas2021
+      refreshPeriod: 300
+      entity-packages: com.deepexi.datasense.data.domain.es
+
+    # zk配置
+    datasense:
+      business:
+        zookeeper:
+          connectString: zookeeper.mid:2181
+          retryCount: 3
+          elapsedTimeMs: 1000
+          sessionTimeoutMs: 60000
+          connectionTimeoutMs: 10000
+          mvAllCacheBasePath: /datasense/mv/cache/all/
+          rowCountCacheBasePath: /datasense/mv/cache/rowCount/
+          dsViewCacheBasePaths: /datasense/view/cache/all/
+        cache:
+          refresh:
+            intervalSeconds: 180
+
+    #xxl-job相关配置
+    xxljob:
+      admin:
+        address: xxl-job-admin/xxl-job-admin/
+      user: admin
+      password: 123456
+      appname: datasense-shedule
+      handler: jobRemoteCallHandler
+
+    mv:
+      job-manager:
+        address: http://k8sMasterIp:32080/datasense-pre-aggregation

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Go语言安装 on Hanson世纪の博客</title>
+        <link>http://localhost:1313/tags/go%E8%AF%AD%E8%A8%80%E5%AE%89%E8%A3%85/</link>
+        <description>Recent content in Go语言安装 on Hanson世纪の博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>Hanson世纪の博客</copyright>
+        <lastBuildDate>Wed, 30 Oct 2024 09:08:41 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/go%E8%AF%AD%E8%A8%80%E5%AE%89%E8%A3%85/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Go语言入门安装</title>
+        <link>http://localhost:1313/p/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E5%AE%89%E8%A3%85/</link>
+        <pubDate>Wed, 30 Oct 2024 09:08:41 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E5%AE%89%E8%A3%85/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>

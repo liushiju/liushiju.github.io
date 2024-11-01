@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Linux on Hanson世纪の博客</title>
+        <link>http://localhost:1313/tags/linux/</link>
+        <description>Recent content in Linux on Hanson世纪の博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>Hanson世纪の博客</copyright>
+        <lastBuildDate>Wed, 30 Oct 2024 23:59:41 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/linux/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Linux服务之 Systemctl 管理</title>
+        <link>http://localhost:1313/p/linux%E6%9C%8D%E5%8A%A1%E4%B9%8B-systemctl-%E7%AE%A1%E7%90%86/</link>
+        <pubDate>Wed, 30 Oct 2024 23:59:41 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/linux%E6%9C%8D%E5%8A%A1%E4%B9%8B-systemctl-%E7%AE%A1%E7%90%86/</guid>
+        <description>&lt;h3 id=&#34;一概述&#34;&gt;一、概述
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;systemctl&lt;/code&gt; 是 Linux 系统中的核心工具之一，用于管理和控制由 &lt;code&gt;systemd&lt;/code&gt; 启动的服务和系统组件。作为系统管理员或开发人员，通过 &lt;code&gt;systemctl&lt;/code&gt; 可以控制系统服务的启动、停止、重启以及检查其运行状态，这在系统维护、故障排查和资源优化方面都极为重要。&lt;code&gt;systemctl list-units --type=service --state=running&lt;/code&gt; 是一个常用命令，它列出了当前正在运行的所有服务，为用户提供系统中活跃进程的简要视图。&lt;/p&gt;
+&lt;h3 id=&#34;二systemctl-list-units-命令详解&#34;&gt;二、&lt;code&gt;systemctl list-units&lt;/code&gt; 命令详解
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;--type=service&lt;/code&gt;：该选项指定仅显示服务单元（即 &lt;code&gt;*.service&lt;/code&gt; 文件）。在 systemd 中，所有服务都是以 .service 结尾的单元文件。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;--state=running&lt;/code&gt;：此选项用于过滤出当前处于 &lt;code&gt;&amp;quot;running&amp;quot;&lt;/code&gt; 状态的服务。由于服务可能处于不同的状态（例如 &amp;ldquo;enabled&amp;rdquo; 表示已启用但未运行，&lt;code&gt;&amp;quot;failed&amp;quot;&lt;/code&gt; 表示服务启动失败），这个选项帮助我们快速聚焦正在正常运行的服务。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;三输出说明&#34;&gt;三、输出说明
+&lt;/h3&gt;&lt;p&gt;运行 &lt;code&gt;systemctl list-units --type=service --state=running&lt;/code&gt; 后，系统会显示当前正在运行的服务列表，每一行包含服务名称、加载状态、激活状态和简短描述。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;例如：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;base&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@localhost ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# systemctl list-units --type=service --state=running&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  UNIT                      LOAD   ACTIVE SUB     DESCRIPTION                                            
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  1panel.service            loaded active running 1Panel, a modern open &lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; linux panel
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  atd.service               loaded active running Deferred execution scheduler
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  auditd.service            loaded active running Security Auditing Service
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  crond.service             loaded active running Command Scheduler
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  dbus.service              loaded active running D-Bus System Message Bus
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  docker.service            loaded active running Docker Application Container Engine
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  firewalld.service         loaded active running firewalld - dynamic firewall daemon
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  getty@tty1.service        loaded active running Getty on tty1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  gitlab-runner.service     loaded active running GitLab Runner
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  gssproxy.service          loaded active running GSSAPI Proxy Daemon
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  iBMA.service              loaded active running iBMA: iBMA service
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  irqbalance.service        loaded active running irqbalance daemon
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  libstoragemgmt.service    loaded active running libstoragemgmt plug-in server daemon
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  mdmonitor.service         loaded active running MD array monitor
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  NetworkManager.service    loaded active running Network Manager
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  ollama.service            loaded active running Ollama Service
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  polkit.service            loaded active running Authorization Manager
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  rdma-ndd.service          loaded active running RDMA Node Description Daemon
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  rngd.service              loaded active running Hardware RNG Entropy Gatherer Daemon
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  rpcbind.service           loaded active running RPC Bind
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  rsyslog.service           loaded active running System Logging Service
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  smartd.service            loaded active running Self Monitoring and Reporting Technology &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SMART&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; Daemon
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  sshd.service              loaded active running OpenSSH server daemon
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  systemd-hostnamed.service loaded active running Hostname Service
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  systemd-journald.service  loaded active running Journal Service
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  systemd-logind.service    loaded active running User Login Management
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  systemd-machined.service  loaded active running Virtual Machine and Container Registration Service
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  systemd-udevd.service     loaded active running Rule-based Manager &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; Device Events and Files
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  tuned.service             loaded active running Dynamic System Tuning Daemon
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;LOAD&lt;/span&gt;   &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; Reflects whether the unit definition was properly loaded.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;ACTIVE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; The high-level unit activation state, i.e. generalization of SUB.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;SUB&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; The low-level unit activation state, values depend on unit type.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;m&#34;&gt;29&lt;/span&gt; loaded units listed.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;输出中每个字段的含义如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;UNIT&lt;/code&gt;：服务的单元名称（例如 sshd.service）。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;LOAD&lt;/code&gt;：服务的加载状态，通常显示为 loaded，表明服务单元已成功加载。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ACTIVE&lt;/code&gt;：服务的激活状态，active 表示服务已激活并处于运行状态。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SUB&lt;/code&gt;：服务的子状态，提供更详细的状态信息。例如，running 表示服务正在正常运行。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DESCRIPTION&lt;/code&gt;：服务的简短描述，通常帮助用户快速理解服务的用途。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;五总结&#34;&gt;五、总结
+&lt;/h3&gt;&lt;p&gt;通过 &lt;code&gt;systemctl list-units --type=service --state=running&lt;/code&gt;，系统管理员能够快速了解当前系统中运行的服务情况，有助于监控系统资源并确保关键服务的正常运转。熟练使用 &lt;code&gt;systemctl&lt;/code&gt; 管理服务单元对于提升系统的稳定性、可靠性至关重要，特别是在保障服务器和应用服务的高可用性方面。&lt;/p&gt;
+&lt;p&gt;&lt;font color=red&gt;=== END ===&lt;/font&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

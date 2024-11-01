@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>K8s“运维 on Example Site</title>
+        <link>http://localhost:1313/tags/k8s%E8%BF%90%E7%BB%B4/</link>
+        <description>Recent content in K8s“运维 on Example Site</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>Example Person</copyright>
+        <lastBuildDate>Wed, 30 Oct 2024 09:08:41 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/k8s%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>k8s configmap格式乱码问题</title>
+        <link>http://localhost:1313/p/k8s-configmap%E6%A0%BC%E5%BC%8F%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</link>
+        <pubDate>Wed, 30 Oct 2024 09:08:41 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/k8s-configmap%E6%A0%BC%E5%BC%8F%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
+        <description>&lt;h1 id=&#34;一概述&#34;&gt;一、概述
+&lt;/h1&gt;&lt;h1 id=&#34;二演示&#34;&gt;二、演示
+&lt;/h1&gt;&lt;h1 id=&#34;三格式化&#34;&gt;三、格式化
+&lt;/h1&gt;</description>
+        </item>
+        
+    </channel>
+</rss>
