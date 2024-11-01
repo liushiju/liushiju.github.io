@@ -10,7 +10,7 @@
 <meta property='og:description' content="一、测试yaml文件\r测试yaml文件\n1 kubectl apply -f datasense-business-cm.yaml 二、在线编辑\r1 kubectl edit cm -n mid datasense-business 出现如下乱码 三、在线格式化查看\r1 kubectl get cm -n mid datasense-business -o json |jq &#39;.data.&#34;application.yaml&#34;&#39; -r 使用jq查看可以看到正常格式，但是想要在线修改就比较麻烦\n">
 <meta property='og:url' content='http://localhost:1313/p/k8s-configmap%E6%A0%BC%E5%BC%8F%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/'>
 <meta property='og:site_name' content='Hanson世纪の博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='k8s' /><meta property='article:tag' content='运维' /><meta property='article:tag' content='configMap' /><meta property='article:published_time' content='2024-10-31T00:10:41&#43;08:00'/><meta property='article:modified_time' content='2024-10-31T00:58:59&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='k8s' /><meta property='article:tag' content='运维' /><meta property='article:tag' content='configMap' /><meta property='article:published_time' content='2024-10-31T00:10:41&#43;08:00'/><meta property='article:modified_time' content='2024-11-02T01:07:37&#43;08:00'/>
 <meta name="twitter:title" content="k8s configmap格式乱码问题">
 <meta name="twitter:description" content="一、测试yaml文件\r测试yaml文件\n1 kubectl apply -f datasense-business-cm.yaml 二、在线编辑\r1 kubectl edit cm -n mid datasense-business 出现如下乱码 三、在线格式化查看\r1 kubectl get cm -n mid datasense-business -o json |jq &#39;.data.&#34;application.yaml&#34;&#39; -r 使用jq查看可以看到正常格式，但是想要在线修改就比较麻烦\n">
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -155,6 +155,25 @@
 
                 
                 <span>文章</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/tags/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
+  <circle cx="9" cy="9" r="2" />
+</svg>
+
+
+
+                
+                <span>标签</span>
             </a>
         </li>
         
@@ -343,7 +362,7 @@
     
     
     <h3 id="一测试yaml文件">一、测试yaml文件
-</h3><p><a class="link" href="./datasense-business-cm.yaml" >测试yaml文件</a></p>
+</h3><p><a class="link" href="../ds-cm.yaml" >测试yaml文件</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -364,7 +383,7 @@
 </div><ul>
 <li>出现如下乱码</li>
 </ul>
-<p><img src="/imgs/image.png"
+<p><img src="/img/image.png"
 	
 	
 	
@@ -383,7 +402,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get cm -n mid datasense-business -o json <span class="p">|</span>jq <span class="s1">&#39;.data.&#34;application.yaml&#34;&#39;</span> -r
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="/imgs/oneline.png"
+</div><p><img src="/img/oneline.png"
 	
 	
 	
@@ -412,7 +431,7 @@
 </span></span><span class="line"><span class="cl">  132:81    error    line too long <span class="o">(</span><span class="m">84</span> &gt; <span class="m">80</span> characters<span class="o">)</span>  <span class="o">(</span>line-length<span class="o">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="/imgs/03.png"
+</div><p><img src="/img/03.png"
 	
 	
 	
@@ -424,7 +443,7 @@
 ></p>
 <p>从结果输出可以看到yaml检查报错，第二行，显示第107行尾部有空格。
 打开文件检查，确实如此，如下图：</p>
-<p><img src="/imgs/04.png"
+<p><img src="/img/04.png"
 	
 	
 	
@@ -453,7 +472,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl edit cm -n mid datasense-business
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="/imgs/05.png"
+</div><p><img src="/img/05.png"
 	
 	
 	
@@ -503,7 +522,7 @@
 
 
         <span>
-            最后更新于 2024年10月31日 00:58
+            最后更新于 2024年11月2日 01:07
         </span>
     </section></footer>
 
@@ -650,8 +669,10 @@
         
         
         
+        
+        
 
-        <p>发布了 10 篇文章 | 共 1525 字</p>
+        <p>发布了 11 篇文章 | 共 1525 字</p>
         <a>总访客数: </a><span id='busuanzi_value_site_uv'>Loading</span> <a> | </a> <a>总访问量: </a><span id='busuanzi_value_site_pv'>Loading</span></br>
         <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.27.0">Stack</a></b> <a>designed by Jimmy</a>
     </section>
