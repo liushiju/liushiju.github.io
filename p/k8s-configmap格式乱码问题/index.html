@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="一、测试yaml文件\r测试yaml文件\n1 kubectl apply -f datasense-business-cm.yaml 二、在线编辑\r1 kubectl edit cm -n mid datasense-business 出现如下乱码 三、在线格式化查看\r1 kubectl get cm -n mid datasense-business -o json |jq &#39;.data.&#34;application.yaml&#34;&#39; -r 使用jq查看可以看到正常格式，但是想要在线修改就比较麻烦\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="一、测试yaml文件\r测试yaml文件\n1 kubectl apply -f ds-cm.yaml 二、在线编辑\r1 kubectl edit cm -n mid ds-cm 出现如下乱码 三、在线格式化查看\r1 kubectl get cm -n mid ds-cm -o json |jq &#39;.data.&#34;application.yaml&#34;&#39; -r 使用jq查看可以看到正常格式，但是想要在线修改就比较麻烦\n">
 <title>k8s configmap格式乱码问题</title>
 
 <link rel='canonical' href='http://localhost:1313/p/k8s-configmap%E6%A0%BC%E5%BC%8F%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/'>
 
 <link rel="stylesheet" href="/scss/style.min.58a8a00d6e21b0a33790b9df9c83b6225ebe7abfb95291ca76c1ad6d27d144d1.css"><meta property='og:title' content="k8s configmap格式乱码问题">
-<meta property='og:description' content="一、测试yaml文件\r测试yaml文件\n1 kubectl apply -f datasense-business-cm.yaml 二、在线编辑\r1 kubectl edit cm -n mid datasense-business 出现如下乱码 三、在线格式化查看\r1 kubectl get cm -n mid datasense-business -o json |jq &#39;.data.&#34;application.yaml&#34;&#39; -r 使用jq查看可以看到正常格式，但是想要在线修改就比较麻烦\n">
+<meta property='og:description' content="一、测试yaml文件\r测试yaml文件\n1 kubectl apply -f ds-cm.yaml 二、在线编辑\r1 kubectl edit cm -n mid ds-cm 出现如下乱码 三、在线格式化查看\r1 kubectl get cm -n mid ds-cm -o json |jq &#39;.data.&#34;application.yaml&#34;&#39; -r 使用jq查看可以看到正常格式，但是想要在线修改就比较麻烦\n">
 <meta property='og:url' content='http://localhost:1313/p/k8s-configmap%E6%A0%BC%E5%BC%8F%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/'>
 <meta property='og:site_name' content='Hanson世纪の博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='k8s' /><meta property='article:tag' content='运维' /><meta property='article:tag' content='configMap' /><meta property='article:published_time' content='2024-10-31T00:10:41&#43;08:00'/><meta property='article:modified_time' content='2024-11-02T01:07:37&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='k8s' /><meta property='article:tag' content='运维' /><meta property='article:tag' content='configMap' /><meta property='article:published_time' content='2024-10-31T00:10:41&#43;08:00'/><meta property='article:modified_time' content='2024-11-02T01:25:50&#43;08:00'/>
 <meta name="twitter:title" content="k8s configmap格式乱码问题">
-<meta name="twitter:description" content="一、测试yaml文件\r测试yaml文件\n1 kubectl apply -f datasense-business-cm.yaml 二、在线编辑\r1 kubectl edit cm -n mid datasense-business 出现如下乱码 三、在线格式化查看\r1 kubectl get cm -n mid datasense-business -o json |jq &#39;.data.&#34;application.yaml&#34;&#39; -r 使用jq查看可以看到正常格式，但是想要在线修改就比较麻烦\n">
+<meta name="twitter:description" content="一、测试yaml文件\r测试yaml文件\n1 kubectl apply -f ds-cm.yaml 二、在线编辑\r1 kubectl edit cm -n mid ds-cm 出现如下乱码 三、在线格式化查看\r1 kubectl get cm -n mid ds-cm -o json |jq &#39;.data.&#34;application.yaml&#34;&#39; -r 使用jq查看可以看到正常格式，但是想要在线修改就比较麻烦\n">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -368,7 +368,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -f datasense-business-cm.yaml
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -f ds-cm.yaml
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="二在线编辑">二、在线编辑
@@ -377,7 +377,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl edit cm -n mid datasense-business
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl edit cm -n mid ds-cm
 </span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -399,7 +399,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get cm -n mid datasense-business -o json <span class="p">|</span>jq <span class="s1">&#39;.data.&#34;application.yaml&#34;&#39;</span> -r
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get cm -n mid ds-cm -o json <span class="p">|</span>jq <span class="s1">&#39;.data.&#34;application.yaml&#34;&#39;</span> -r
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><img src="/img/oneline.png"
@@ -424,8 +424,8 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@k8s-master ~<span class="o">]</span><span class="c1"># yamllint datasense-business-cm.yaml </span>
-</span></span><span class="line"><span class="cl">datasense-business-cm.yaml
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@k8s-master ~<span class="o">]</span><span class="c1"># yamllint ds-cm.yaml </span>
+</span></span><span class="line"><span class="cl">ds-cm.yaml
 </span></span><span class="line"><span class="cl">  22:81     error    line too long <span class="o">(</span><span class="m">161</span> &gt; <span class="m">80</span> characters<span class="o">)</span>  <span class="o">(</span>line-length<span class="o">)</span>
 </span></span><span class="line"><span class="cl">  107:52    error    trailing spaces  <span class="o">(</span>trailing-spaces<span class="o">)</span>
 </span></span><span class="line"><span class="cl">  132:81    error    line too long <span class="o">(</span><span class="m">84</span> &gt; <span class="m">80</span> characters<span class="o">)</span>  <span class="o">(</span>line-length<span class="o">)</span>
@@ -460,7 +460,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -f datasense-business-cm.yaml
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -f ds-cm.yaml
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>再次在线编辑验证，可以看到已经变回正常格式。</p>
@@ -469,7 +469,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl edit cm -n mid datasense-business
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl edit cm -n mid ds-cm
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><img src="/img/05.png"
@@ -522,7 +522,7 @@
 
 
         <span>
-            最后更新于 2024年11月2日 01:07
+            最后更新于 2024年11月2日 01:25
         </span>
     </section></footer>
 
