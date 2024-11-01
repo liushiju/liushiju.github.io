@@ -5,7 +5,7 @@
         <link>http://localhost:1313/categories/%E6%B5%8B%E8%AF%95/</link>
         <description>Recent content in Test on Hanson世纪の博客</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en</language>
-        <copyright>Hanson世纪の博客</copyright><atom:link href="http://localhost:1313/categories/%E6%B5%8B%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
+        <language>zh-cn</language>
+        <copyright>Liu Shiju</copyright><atom:link href="http://localhost:1313/categories/%E6%B5%8B%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
     </channel>
 </rss>

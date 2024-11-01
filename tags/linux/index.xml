@@ -5,12 +5,20 @@
         <link>http://localhost:1313/tags/linux/</link>
         <description>Recent content in Linux on Hanson世纪の博客</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en</language>
-        <copyright>Hanson世纪の博客</copyright>
-        <lastBuildDate>Wed, 30 Oct 2024 23:59:41 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/linux/index.xml" rel="self" type="application/rss+xml" /><item>
+        <language>zh-cn</language>
+        <copyright>Liu Shiju</copyright>
+        <lastBuildDate>Fri, 01 Nov 2024 23:10:35 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/linux/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Kubernetes在线编辑configmap格式错乱问题</title>
+        <link>http://localhost:1313/p/kubernetes%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91configmap%E6%A0%BC%E5%BC%8F%E9%94%99%E4%B9%B1%E9%97%AE%E9%A2%98/</link>
+        <pubDate>Fri, 01 Nov 2024 23:09:29 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/kubernetes%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91configmap%E6%A0%BC%E5%BC%8F%E9%94%99%E4%B9%B1%E9%97%AE%E9%A2%98/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Linux服务之 Systemctl 管理</title>
         <link>http://localhost:1313/p/linux%E6%9C%8D%E5%8A%A1%E4%B9%8B-systemctl-%E7%AE%A1%E7%90%86/</link>
-        <pubDate>Wed, 30 Oct 2024 23:59:41 +0800</pubDate>
+        <pubDate>Wed, 30 Oct 2024 00:00:00 +0800</pubDate>
         
         <guid>http://localhost:1313/p/linux%E6%9C%8D%E5%8A%A1%E4%B9%8B-systemctl-%E7%AE%A1%E7%90%86/</guid>
         <description>&lt;h3 id=&#34;一概述&#34;&gt;一、概述

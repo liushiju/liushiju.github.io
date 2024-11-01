@@ -5,9 +5,46 @@
         <link>http://localhost:1313/post/</link>
         <description>Recent content in Posts on Hanson世纪の博客</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en</language>
-        <copyright>Hanson世纪の博客</copyright>
-        <lastBuildDate>Thu, 31 Oct 2024 00:10:41 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <language>zh-cn</language>
+        <copyright>Liu Shiju</copyright>
+        <lastBuildDate>Fri, 01 Nov 2024 23:10:35 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Kubernetes在线编辑configmap格式错乱问题</title>
+        <link>http://localhost:1313/p/kubernetes%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91configmap%E6%A0%BC%E5%BC%8F%E9%94%99%E4%B9%B1%E9%97%AE%E9%A2%98/</link>
+        <pubDate>Fri, 01 Nov 2024 23:09:29 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/kubernetes%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91configmap%E6%A0%BC%E5%BC%8F%E9%94%99%E4%B9%B1%E9%97%AE%E9%A2%98/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>AlertManager告警通知 - 定义告警规则</title>
+        <link>http://localhost:1313/p/alertmanager%E5%91%8A%E8%AD%A6%E9%80%9A%E7%9F%A5-%E5%AE%9A%E4%B9%89%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99/</link>
+        <pubDate>Thu, 31 Oct 2024 00:10:41 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/alertmanager%E5%91%8A%E8%AD%A6%E9%80%9A%E7%9F%A5-%E5%AE%9A%E4%B9%89%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99/</guid>
+        <description>&lt;h3 id=&#34;定义告警规则&#34;&gt;定义告警规则
+&lt;/h3&gt;&lt;p&gt;为了监控目标定义告警规则，告知Prometheus在什么条件下生成告警，并通过AlertManager发送告警通知。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在 Prometheus 配置文件中指定告警规则文件路径：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rule_files:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  - &lt;span class=&#34;s2&#34;&gt;&amp;#34;rules/*yml&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;配置说明：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;rules/*yml&amp;quot;&lt;/code&gt;: 告警规则文件存放在rules目录下，以&lt;code&gt;.yml&lt;/code&gt;结尾&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>k8s configmap格式乱码问题</title>
         <link>http://localhost:1313/p/k8s-configmap%E6%A0%BC%E5%BC%8F%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</link>
         <pubDate>Thu, 31 Oct 2024 00:10:41 +0800</pubDate>
@@ -138,11 +175,34 @@
 </description>
         </item>
         <item>
-        <title>Linux服务之Systemctl 管理</title>
-        <link>http://localhost:1313/p/linux%E6%9C%8D%E5%8A%A1%E4%B9%8Bsystemctl-%E7%AE%A1%E7%90%86/</link>
-        <pubDate>Wed, 30 Oct 2024 23:59:41 +0800</pubDate>
+        <title>Go语言入门安装</title>
+        <link>http://localhost:1313/p/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E5%AE%89%E8%A3%85/</link>
+        <pubDate>Wed, 30 Oct 2024 09:08:41 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/linux%E6%9C%8D%E5%8A%A1%E4%B9%8Bsystemctl-%E7%AE%A1%E7%90%86/</guid>
+        <guid>http://localhost:1313/p/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E5%AE%89%E8%A3%85/</guid>
+        <description>&lt;h3 id=&#34;下载安装包&#34;&gt;下载安装包
+&lt;/h3&gt;&lt;p&gt;我们进入官网下载安装包&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Hugo stack 主题配合 Github 搭建个人博客</title>
+        <link>http://localhost:1313/p/hugo-stack-%E4%B8%BB%E9%A2%98%E9%85%8D%E5%90%88-github-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</link>
+        <pubDate>Wed, 30 Oct 2024 09:08:41 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/hugo-stack-%E4%B8%BB%E9%A2%98%E9%85%8D%E5%90%88-github-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</guid>
+        <description>&lt;!-- 分类 --&gt;
+&lt;!-- categories = [&#34;运维技术&#34;] --&gt;
+&lt;!-- 标签 --&gt;
+&lt;!-- tags = [&#34;运维&#34;] --&gt;
+&lt;h3 id=&#34;一hugo-搭建技术分享&#34;&gt;一、Hugo 搭建技术分享
+&lt;/h3&gt;</description>
+        </item>
+        <item>
+        <title>Linux服务之 Systemctl 管理</title>
+        <link>http://localhost:1313/p/linux%E6%9C%8D%E5%8A%A1%E4%B9%8B-systemctl-%E7%AE%A1%E7%90%86/</link>
+        <pubDate>Wed, 30 Oct 2024 00:00:00 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/linux%E6%9C%8D%E5%8A%A1%E4%B9%8B-systemctl-%E7%AE%A1%E7%90%86/</guid>
         <description>&lt;h3 id=&#34;一概述&#34;&gt;一、概述
 &lt;/h3&gt;&lt;p&gt;&lt;code&gt;systemctl&lt;/code&gt; 是 Linux 系统中的核心工具之一，用于管理和控制由 &lt;code&gt;systemd&lt;/code&gt; 启动的服务和系统组件。作为系统管理员或开发人员，通过 &lt;code&gt;systemctl&lt;/code&gt; 可以控制系统服务的启动、停止、重启以及检查其运行状态，这在系统维护、故障排查和资源优化方面都极为重要。&lt;code&gt;systemctl list-units --type=service --state=running&lt;/code&gt; 是一个常用命令，它列出了当前正在运行的所有服务，为用户提供系统中活跃进程的简要视图。&lt;/p&gt;
 &lt;h3 id=&#34;二systemctl-list-units-命令详解&#34;&gt;二、&lt;code&gt;systemctl list-units&lt;/code&gt; 命令详解
@@ -247,29 +307,6 @@
 &lt;/h3&gt;&lt;p&gt;通过 &lt;code&gt;systemctl list-units --type=service --state=running&lt;/code&gt;，系统管理员能够快速了解当前系统中运行的服务情况，有助于监控系统资源并确保关键服务的正常运转。熟练使用 &lt;code&gt;systemctl&lt;/code&gt; 管理服务单元对于提升系统的稳定性、可靠性至关重要，特别是在保障服务器和应用服务的高可用性方面。&lt;/p&gt;
 &lt;p&gt;&lt;font color=red&gt;=== END ===&lt;/font&gt;&lt;/p&gt;
 </description>
-        </item>
-        <item>
-        <title>Go语言入门安装</title>
-        <link>http://localhost:1313/p/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E5%AE%89%E8%A3%85/</link>
-        <pubDate>Wed, 30 Oct 2024 09:08:41 +0800</pubDate>
-        
-        <guid>http://localhost:1313/p/go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E5%AE%89%E8%A3%85/</guid>
-        <description>&lt;h3 id=&#34;下载安装包&#34;&gt;下载安装包
-&lt;/h3&gt;&lt;p&gt;我们进入官网下载安装包&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>Hugo stack 主题配合 Github 搭建个人博客</title>
-        <link>http://localhost:1313/p/hugo-stack-%E4%B8%BB%E9%A2%98%E9%85%8D%E5%90%88-github-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</link>
-        <pubDate>Wed, 30 Oct 2024 09:08:41 +0800</pubDate>
-        
-        <guid>http://localhost:1313/p/hugo-stack-%E4%B8%BB%E9%A2%98%E9%85%8D%E5%90%88-github-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</guid>
-        <description>&lt;!-- 分类 --&gt;
-&lt;!-- categories = [&#34;运维技术&#34;] --&gt;
-&lt;!-- 标签 --&gt;
-&lt;!-- tags = [&#34;运维&#34;] --&gt;
-&lt;h3 id=&#34;一hugo-搭建技术分享&#34;&gt;一、Hugo 搭建技术分享
-&lt;/h3&gt;</description>
         </item>
         
     </channel>

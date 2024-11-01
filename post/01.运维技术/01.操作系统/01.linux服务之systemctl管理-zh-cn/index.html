@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="一、概述\rsystemctl 是 Linux 系统中的核心工具之一，用于管理和控制由 systemd 启动的服务和系统组件。作为系统管理员或开发人员，通过 systemctl 可以控制系统服务的启动、停止、重启以及检查其运行状态，这在系统维护、故障排查和资源优化方面都极为重要。systemctl list-units --type=service --state=running 是一个常用命令，它列出了当前正在运行的所有服务，为用户提供系统中活跃进程的简要视图。\n">
+<title>Linux服务之 Systemctl 管理</title>
+
+<link rel='canonical' href='http://localhost:1313/post/01.%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF/01.%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/01.linux%E6%9C%8D%E5%8A%A1%E4%B9%8Bsystemctl%E7%AE%A1%E7%90%86-zh-cn/'>
+
+<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="Linux服务之 Systemctl 管理">
+<meta property='og:description' content="一、概述\rsystemctl 是 Linux 系统中的核心工具之一，用于管理和控制由 systemd 启动的服务和系统组件。作为系统管理员或开发人员，通过 systemctl 可以控制系统服务的启动、停止、重启以及检查其运行状态，这在系统维护、故障排查和资源优化方面都极为重要。systemctl list-units --type=service --state=running 是一个常用命令，它列出了当前正在运行的所有服务，为用户提供系统中活跃进程的简要视图。\n">
+<meta property='og:url' content='http://localhost:1313/post/01.%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF/01.%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/01.linux%E6%9C%8D%E5%8A%A1%E4%B9%8Bsystemctl%E7%AE%A1%E7%90%86-zh-cn/'>
+<meta property='og:site_name' content='Hanson世纪の博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux' /><meta property='article:tag' content='系统服务' /><meta property='article:tag' content='systemctl' /><meta property='article:published_time' content='2024-10-30T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2024-11-01T22:11:34&#43;08:00'/>
+<meta name="twitter:title" content="Linux服务之 Systemctl 管理">
+<meta name="twitter:description" content="一、概述\rsystemctl 是 Linux 系统中的核心工具之一，用于管理和控制由 systemd 启动的服务和系统组件。作为系统管理员或开发人员，通过 systemctl 可以控制系统服务的启动、停止、重启以及检查其运行状态，这在系统维护、故障排查和资源优化方面都极为重要。systemctl list-units --type=service --state=running 是一个常用命令，它列出了当前正在运行的所有服务，为用户提供系统中活跃进程的简要视图。\n">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu13739649187745961479.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Hanson世纪の博客</a></h1>
+            <h2 class="site-description">分享记录云原生、开发、运维、日常工作、人生思考等内容</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href=''
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href=''
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#一概述">一、概述</a></li>
+        <li><a href="#二systemctl-list-units-命令详解">二、<code>systemctl list-units</code> 命令详解</a></li>
+        <li><a href="#三输出说明">三、输出说明</a></li>
+        <li><a href="#五总结">五、总结</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF/" style="background-color: #2a9d8; color: #fff;">
+                运维技术
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/01.%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF/01.%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/01.linux%E6%9C%8D%E5%8A%A1%E4%B9%8Bsystemctl%E7%AE%A1%E7%90%86-zh-cn/">Linux服务之 Systemctl 管理</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2024年10月30日</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h3 id="一概述">一、概述
+</h3><p><code>systemctl</code> 是 Linux 系统中的核心工具之一，用于管理和控制由 <code>systemd</code> 启动的服务和系统组件。作为系统管理员或开发人员，通过 <code>systemctl</code> 可以控制系统服务的启动、停止、重启以及检查其运行状态，这在系统维护、故障排查和资源优化方面都极为重要。<code>systemctl list-units --type=service --state=running</code> 是一个常用命令，它列出了当前正在运行的所有服务，为用户提供系统中活跃进程的简要视图。</p>
+<h3 id="二systemctl-list-units-命令详解">二、<code>systemctl list-units</code> 命令详解
+</h3><blockquote>
+<p><code>--type=service</code>：该选项指定仅显示服务单元（即 <code>*.service</code> 文件）。在 systemd 中，所有服务都是以 .service 结尾的单元文件。</p>
+</blockquote>
+<blockquote>
+<p><code>--state=running</code>：此选项用于过滤出当前处于 <code>&quot;running&quot;</code> 状态的服务。由于服务可能处于不同的状态（例如 &ldquo;enabled&rdquo; 表示已启用但未运行，<code>&quot;failed&quot;</code> 表示服务启动失败），这个选项帮助我们快速聚焦正在正常运行的服务。</p>
+</blockquote>
+<h3 id="三输出说明">三、输出说明
+</h3><p>运行 <code>systemctl list-units --type=service --state=running</code> 后，系统会显示当前正在运行的服务列表，每一行包含服务名称、加载状态、激活状态和简短描述。</p>
+<ul>
+<li>例如：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">(</span>base<span class="o">)</span> <span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># systemctl list-units --type=service --state=running</span>
+</span></span><span class="line"><span class="cl">  UNIT                      LOAD   ACTIVE SUB     DESCRIPTION                                            
+</span></span><span class="line"><span class="cl">  1panel.service            loaded active running 1Panel, a modern open <span class="nb">source</span> linux panel
+</span></span><span class="line"><span class="cl">  atd.service               loaded active running Deferred execution scheduler
+</span></span><span class="line"><span class="cl">  auditd.service            loaded active running Security Auditing Service
+</span></span><span class="line"><span class="cl">  crond.service             loaded active running Command Scheduler
+</span></span><span class="line"><span class="cl">  dbus.service              loaded active running D-Bus System Message Bus
+</span></span><span class="line"><span class="cl">  docker.service            loaded active running Docker Application Container Engine
+</span></span><span class="line"><span class="cl">  firewalld.service         loaded active running firewalld - dynamic firewall daemon
+</span></span><span class="line"><span class="cl">  getty@tty1.service        loaded active running Getty on tty1
+</span></span><span class="line"><span class="cl">  gitlab-runner.service     loaded active running GitLab Runner
+</span></span><span class="line"><span class="cl">  gssproxy.service          loaded active running GSSAPI Proxy Daemon
+</span></span><span class="line"><span class="cl">  iBMA.service              loaded active running iBMA: iBMA service
+</span></span><span class="line"><span class="cl">  irqbalance.service        loaded active running irqbalance daemon
+</span></span><span class="line"><span class="cl">  libstoragemgmt.service    loaded active running libstoragemgmt plug-in server daemon
+</span></span><span class="line"><span class="cl">  mdmonitor.service         loaded active running MD array monitor
+</span></span><span class="line"><span class="cl">  NetworkManager.service    loaded active running Network Manager
+</span></span><span class="line"><span class="cl">  ollama.service            loaded active running Ollama Service
+</span></span><span class="line"><span class="cl">  polkit.service            loaded active running Authorization Manager
+</span></span><span class="line"><span class="cl">  rdma-ndd.service          loaded active running RDMA Node Description Daemon
+</span></span><span class="line"><span class="cl">  rngd.service              loaded active running Hardware RNG Entropy Gatherer Daemon
+</span></span><span class="line"><span class="cl">  rpcbind.service           loaded active running RPC Bind
+</span></span><span class="line"><span class="cl">  rsyslog.service           loaded active running System Logging Service
+</span></span><span class="line"><span class="cl">  smartd.service            loaded active running Self Monitoring and Reporting Technology <span class="o">(</span>SMART<span class="o">)</span> Daemon
+</span></span><span class="line"><span class="cl">  sshd.service              loaded active running OpenSSH server daemon
+</span></span><span class="line"><span class="cl">  systemd-hostnamed.service loaded active running Hostname Service
+</span></span><span class="line"><span class="cl">  systemd-journald.service  loaded active running Journal Service
+</span></span><span class="line"><span class="cl">  systemd-logind.service    loaded active running User Login Management
+</span></span><span class="line"><span class="cl">  systemd-machined.service  loaded active running Virtual Machine and Container Registration Service
+</span></span><span class="line"><span class="cl">  systemd-udevd.service     loaded active running Rule-based Manager <span class="k">for</span> Device Events and Files
+</span></span><span class="line"><span class="cl">  tuned.service             loaded active running Dynamic System Tuning Daemon
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">LOAD</span>   <span class="o">=</span> Reflects whether the unit definition was properly loaded.
+</span></span><span class="line"><span class="cl"><span class="nv">ACTIVE</span> <span class="o">=</span> The high-level unit activation state, i.e. generalization of SUB.
+</span></span><span class="line"><span class="cl"><span class="nv">SUB</span>    <span class="o">=</span> The low-level unit activation state, values depend on unit type.
+</span></span><span class="line"><span class="cl"><span class="m">29</span> loaded units listed.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出中每个字段的含义如下：</p>
+<ul>
+<li><code>UNIT</code>：服务的单元名称（例如 sshd.service）。</li>
+<li><code>LOAD</code>：服务的加载状态，通常显示为 loaded，表明服务单元已成功加载。</li>
+<li><code>ACTIVE</code>：服务的激活状态，active 表示服务已激活并处于运行状态。</li>
+<li><code>SUB</code>：服务的子状态，提供更详细的状态信息。例如，running 表示服务正在正常运行。</li>
+<li><code>DESCRIPTION</code>：服务的简短描述，通常帮助用户快速理解服务的用途。</li>
+</ul>
+<h3 id="五总结">五、总结
+</h3><p>通过 <code>systemctl list-units --type=service --state=running</code>，系统管理员能够快速了解当前系统中运行的服务情况，有助于监控系统资源并确保关键服务的正常运转。熟练使用 <code>systemctl</code> 管理服务单元对于提升系统的稳定性、可靠性至关重要，特别是在保障服务器和应用服务的高可用性方面。</p>
+<p><font color=red>=== END ===</font></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/linux/">Linux</a>
+        
+            <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1/">系统服务</a>
+        
+            <a href="/tags/systemctl/">Systemctl</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 2024年11月1日 22:11
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/post/01.%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF/02.kubernetes/02.alertmanager%E5%91%8A%E8%AD%A6/02.alertmanager%E5%91%8A%E8%AD%A6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">AlertManager告警通知 - 定义告警规则</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/01.%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF/02.kubernetes/01.k8s%E4%B8%ADconfigmap%E6%A0%BC%E5%BC%8F%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/01.k8s%E4%B8%ADconfigmap%E6%A0%BC%E5%BC%8F%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98-zh-cn/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">k8s configmap格式乱码问题</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/01.%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF/01.hugo%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2-zh-cn/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Hugo stack 主题配合 Github 搭建个人博客</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2024 Hanson世纪の博客
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.55949611f25058c991e49b9bd10835462a379b9eeccdbc7b582487c1ce43d2ae.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
